@@ -1,0 +1,79 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
+<span class='line'>  2</span>  * Created with JetBrains PhpStorm.
+<span class='line'>  3</span>  * User: Almira
+<span class='line'>  4</span>  * version: 1.0
+<span class='line'>  5</span>  */</span><span class="WHIT">
+<span class='line'>  6</span> 
+<span class='line'>  7</span> </span><span class="COMM">/**
+<span class='line'>  8</span>  * Dit is de array met alle stocks.
+<span class='line'>  9</span>  */</span><span class="WHIT">
+<span class='line'> 10</span> </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">NewStocks</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 11</span> 
+<span class='line'> 12</span> </span><span class="COMM">/**
+<span class='line'> 13</span>  * Dit is de constructor van de StockController,
+<span class='line'> 14</span>  * De stockcontroller kan zo vaak als je wil worden gemaakt.
+<span class='line'> 15</span>  * Ik maak er een constructor van om een specifieke object van te maken die zijn eigen methodes en variabels heeft.
+<span class='line'> 16</span>  * Ook gebruik ik de model view controller pattern dit omdat het gestructureerd wordt en makkelijk te begrijpen,
+<span class='line'> 17</span>  * de controller roept de view aan en set een timer,
+<span class='line'> 18</span>  * De Controller maakt een stockprovider aan en geeft dit door aan de methode start van het object Time.
+<span class='line'> 19</span>  * De stockprovider is een factory die of een localhelper terug geeft of een yahoohelper, wanneer er nieuwe data is aangemaakt wordt de view geupdate.
+<span class='line'> 20</span>  * @constructor : Constructor van de StockController class.
+<span class='line'> 21</span>  */</span><span class="WHIT">
+<span class='line'> 22</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">StockController</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 23</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 24</span>      * Hier wordt een nieuwe "instantie/class" class aangemaakt van een randomizer.
+<span class='line'> 25</span>      * @type {Randomizer}
+<span class='line'> 26</span>      */</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="WHIT">    </span><span class="NAME">randomizer</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Randomizer</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 28</span> 
+<span class='line'> 29</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 30</span>      * Hier wordt een nieuwe "instantie/class" class aangemaakt van een timer.
+<span class='line'> 31</span>      * @type {Timer}
+<span class='line'> 32</span>      */</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="WHIT">    </span><span class="NAME">this.timer</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Timer</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 34</span> 
+<span class='line'> 35</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 36</span>      * Hier wordt een nieuwe "instantie/class" class aangemaakt van een stockview;
+<span class='line'> 37</span>      * Dit wordt gemaakt om een mvc pattern te gebruiken
+<span class='line'> 38</span>      * @type {StockView}
+<span class='line'> 39</span>      */</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="WHIT">    </span><span class="NAME">view</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">StockView</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 41</span> 
+<span class='line'> 42</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 43</span>      *  Hier wordt een nieuwe "instantie/class" class aangemaakt van een stockprovider;
+<span class='line'> 44</span>      * @type {StockProvider}
+<span class='line'> 45</span>      */</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="WHIT">    </span><span class="NAME">stockprovider</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">StockProvider</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 47</span> 
+<span class='line'> 48</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 49</span>      * Dit is een functie die alleen wordt gebruikt in de stockprovider.
+<span class='line'> 50</span>      * Ik wil ook niet dat andere objecten deze functie kunnen oproepen.
+<span class='line'> 51</span>      * Deze functie set eerst de nieuwe stocks,
+<span class='line'> 52</span>      * waarbij de default data wordt opgehaald door de functie firstData op te roepen van de randomizer.
+<span class='line'> 53</span>      *  Dan geeft de controller door aan de view (door de methode buildstocktable waarbij de stocks worden meegegeven) dat een tabel met data moet worden gemaakt.
+<span class='line'> 54</span>      */</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">    </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">buildPage</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 56</span> </span><span class="WHIT">        </span><span class="NAME">NewStocks</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">randomizer.firstData</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 57</span> </span><span class="WHIT">        </span><span class="NAME">view.buildStockTable</span><span class="PUNC">(</span><span class="NAME">NewStocks</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 58</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 59</span> 
+<span class='line'> 60</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 61</span>      * Dit is de main function, eerst wordt de buildpage opgeroepen om de tabel ta maken.
+<span class='line'> 62</span>      * Daarna wordt de timer gestart door de class timer op te roepen en zijn start methode.
+<span class='line'> 63</span>      * De stockprovider wordt meegegeven aan de start methode,
+<span class='line'> 64</span>      * dit zodat de methode getdata van de stockprovider steeds kan worden aangeroepen om de 5 seconde.
+<span class='line'> 65</span>      */</span><span class="WHIT">
+<span class='line'> 66</span> </span><span class="WHIT">    </span><span class="NAME">this.main</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 67</span> </span><span class="WHIT">        </span><span class="NAME">buildPage.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 68</span> </span><span class="WHIT">        </span><span class="NAME">this.timer.start</span><span class="PUNC">(</span><span class="NAME">stockprovider</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 70</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 71</span> 
+<span class='line'> 72</span> </span></pre></body></html>

@@ -1,0 +1,49 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
+<span class='line'>  2</span>  * Created with JetBrains PhpStorm.
+<span class='line'>  3</span>  * User: Almira
+<span class='line'>  4</span>  * Version: 1.0
+<span class='line'>  5</span>  */</span><span class="WHIT">
+<span class='line'>  6</span> 
+<span class='line'>  7</span> </span><span class="COMM">/**
+<span class='line'>  8</span>  * Dit is de constructor van de Timer,
+<span class='line'>  9</span>  * De Timer kan zo vaak als je wil worden aangemaakt.
+<span class='line'> 10</span>  * Ik maak er een constructor van om een specifieke object van te maken die zijn eigen methodes en variabels heeft.
+<span class='line'> 11</span>  * De timer class/object is er om de timer te starten zodat de data steeds wordt geupdate.
+<span class='line'> 12</span>  *
+<span class='line'> 13</span>  * De reden dat ik alle functies en variables in de constructor zet is om het zoveel mogenlijk op een class te laten lijken met zijn eigen methodes/variables.
+<span class='line'> 14</span>  * Om het erin te zetten zien het er ook meer uit als een class.
+<span class='line'> 15</span>  *
+<span class='line'> 16</span>  * Used site: http://www.elated.com/articles/javascript-timers-with-settimeout-and-setinterval/
+<span class='line'> 17</span>  * @constructor : Constructor van de Timer class.
+<span class='line'> 18</span>  */</span><span class="WHIT">
+<span class='line'> 19</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">Timer</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 21</span>      * Het aantal seconde/minuten/uren dat de informatie moet worden geupdate.
+<span class='line'> 22</span>      * @type {Number} : het aantal seconde/minuten/uren.
+<span class='line'> 23</span>      */</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">delayTime</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">5000</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 25</span> 
+<span class='line'> 26</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 27</span>      * De functie start is om de interval te starten,
+<span class='line'> 28</span>      * De stockprovider moet meegegeven worden om de data steeds te updaten.
+<span class='line'> 29</span>      * @param stockprovider : de stockprovider dat wordt meegegeven door de constructor waar de yahoo of local wordt opgehaald.
+<span class='line'> 30</span>      */</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">    </span><span class="NAME">this.start</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">stockprovider</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 32</span> </span><span class="WHIT">        </span><span class="NAME">this.interval</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">setInterval</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">stockprovider.getData</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">delayTime</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 34</span> 
+<span class='line'> 35</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 36</span>      * Deze functie kan de interval stoppen.
+<span class='line'> 37</span>      */</span><span class="WHIT">
+<span class='line'> 38</span> </span><span class="WHIT">    </span><span class="NAME">this.stop</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 39</span> </span><span class="WHIT">        </span><span class="NAME">clearInterval</span><span class="PUNC">(</span><span class="NAME">this.interval</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 41</span> 
+<span class='line'> 42</span> </span><span class="PUNC">}</span></pre></body></html>

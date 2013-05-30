@@ -1,0 +1,94 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
+<span class='line'>  2</span>  * Created with JetBrains PhpStorm.
+<span class='line'>  3</span>  * User: Almira
+<span class='line'>  4</span>  * Version: 1.0
+<span class='line'>  5</span>  */</span><span class="WHIT">
+<span class='line'>  6</span> 
+<span class='line'>  7</span> </span><span class="COMM">/**
+<span class='line'>  8</span>  * Dit is de constructor van de StockProvider,
+<span class='line'>  9</span>  * De StockProvider kan zo vaak als je wil worden aangemaakt.
+<span class='line'> 10</span>  * Ik maak er een constructor van om een specifieke object van te maken die zijn eigen methodes en variabels heeft.
+<span class='line'> 11</span>  * De stockProvider is een factory pattern.
+<span class='line'> 12</span>  * De stockprovider geeft een nieuwe Localhelper of YahooAjaxHelper door de functie getData op te roepen.
+<span class='line'> 13</span>  * In mijn geval set ik al wanneer ik de yahoo wil of de local. Dit doe ik door ze om de 10 keer te wisselen.
+<span class='line'> 14</span>  * Dus 10 keer geef ik de local dan 10 keer de yahoo en dit steeds om en om.
+<span class='line'> 15</span>  *
+<span class='line'> 16</span>  * De reden dat ik alle functies en variables in de constructor zet is om het zoveel mogenlijk op een class te laten lijken met zijn eigen methodes/variables.
+<span class='line'> 17</span>  * Om het erin te zetten zien het er ook meer uit als een class.
+<span class='line'> 18</span>  * @constructor : Constructor van de StockProvider class.
+<span class='line'> 19</span>  */</span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">StockProvider</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 21</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 22</span>      * Maakt een nieuwe YahooAjaxHelper aan en zet dat in de variable yahoo.
+<span class='line'> 23</span>      * @type {YahooAjaxHelper} : Geeft een YahooAjaxHelper "class/object".
+<span class='line'> 24</span>      */</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="WHIT">    </span><span class="NAME">yahoo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">YahooAjaxHelper</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 26</span> 
+<span class='line'> 27</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 28</span>      * Maakt een nieuwe LocalHelper aan en zet dat in de variable local.
+<span class='line'> 29</span>      * @type {LocalHelper} : Geeft een LocalHelper "class/object".
+<span class='line'> 30</span>      */</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">    </span><span class="NAME">local</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">LocalHelper</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 32</span> 
+<span class='line'> 33</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 34</span>      * Dit is om bij te houden het aantal keer dat de methode getdata is aan geroepen,
+<span class='line'> 35</span>      * zodat er om en om de yahoo en local helpers worden gereturnt
+<span class='line'> 36</span>      * @type {Number} : count begint met 1.
+<span class='line'> 37</span>      */</span><span class="WHIT">
+<span class='line'> 38</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">count</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 39</span> 
+<span class='line'> 40</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 41</span>      * De functie getData is om een nieuwe yahoo of local helper te returnen .
+<span class='line'> 42</span>      * Na elke keer dat de functie wordt aangeroepen gaat de count omhoog.
+<span class='line'> 43</span>      * Dan wordt er een if en else gezet, wanneer de getdata 10 keer is aangeroepen (die local mee geeft) geeft hij de yahoo terug.
+<span class='line'> 44</span>      * Nadat de functie 20 keer is aangeroepen wordt de count gereset en zo geeft de StockProvider factory om en om de local en yahoo en roept de getStockData functie aan.
+<span class='line'> 45</span>      *
+<span class='line'> 46</span>      * @param count : het aantal keer dat getdata is opgeroepen.
+<span class='line'> 47</span>      */</span><span class="WHIT">
+<span class='line'> 48</span> </span><span class="WHIT">    </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">getData</span><span class="PUNC">(</span><span class="NAME">count</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 49</span> </span><span class="WHIT">        </span><span class="COMM">/**
+<span class='line'> 50</span>          * Eerst 10 keer dat data wordt opgeroepen voor de local;
+<span class='line'> 51</span>          * @type {Number} : 10 keer.
+<span class='line'> 52</span>          */</span><span class="WHIT">
+<span class='line'> 53</span> </span><span class="WHIT">        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">localCount</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">10</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 54</span> </span><span class="WHIT">        </span><span class="COMM">/**
+<span class='line'> 55</span>          * de volgende 10 keer (maximum is dan dus 20 keer) voor de yahoo;
+<span class='line'> 56</span>          * @type {Number} : 20e keer.
+<span class='line'> 57</span>          */</span><span class="WHIT">
+<span class='line'> 58</span> </span><span class="WHIT">        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">yahooCount</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">20</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 59</span> </span><span class="WHIT">        </span><span class="COMM">/**
+<span class='line'> 60</span>          * reset de count terug naar 1
+<span class='line'> 61</span>          * @type {Number} :  1 (gereset weer naar het begin)
+<span class='line'> 62</span>          */</span><span class="WHIT">
+<span class='line'> 63</span> </span><span class="WHIT">        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">resetCount</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 64</span> </span><span class="WHIT">        </span><span class="COMM">/**
+<span class='line'> 65</span>          * hier wordt de functie getdata aangeroepen voor het returnen van de local of yahoo helper.
+<span class='line'> 66</span>          * @return {*} Het hang van de count af wat hij returnt, of de local.getStockData() of de yahoo.getStockData
+<span class='line'> 67</span>          */</span><span class="WHIT">
+<span class='line'> 68</span> </span><span class="WHIT">        </span><span class="NAME">this.getData</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="WHIT">            </span><span class="NAME">count</span><span class="PUNC">++</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 70</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">count</span><span class="WHIT"> </span><span class="PUNC">&lt;=</span><span class="WHIT"> </span><span class="NAME">localCount</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 71</span> </span><span class="WHIT">                </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">local.getStockData</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 72</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 73</span> </span><span class="WHIT">            </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 74</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">count</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NAME">yahooCount</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 75</span> </span><span class="WHIT">                    </span><span class="NAME">count</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">resetCount</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 76</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 77</span> </span><span class="WHIT">                </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">yahoo.getStockData</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 78</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 79</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 80</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 81</span> 
+<span class='line'> 82</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 83</span>      * Wanneer de functie getData wordt opgeroepen geeft hij de count mee.
+<span class='line'> 84</span>      */</span><span class="WHIT">
+<span class='line'> 85</span> </span><span class="WHIT">    </span><span class="NAME">getData.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">count</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 86</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 87</span> </span></pre></body></html>

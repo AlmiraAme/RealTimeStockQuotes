@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Total coverage report</title>
+<style>
+    body {
+        margin: 0;
+        padding: 18px 10px;
+        font: 0.8125em Verdana, sans-serif;
+    }
+
+    h1 {
+        font-size: 1.2em;
+        margin: 0;
+        padding-left: 10px;
+        padding-bottom: 5px;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    .stats {
+        width: 100%;
+    }
+
+    .stats-header th {
+        color: white;
+    }
+
+    .stats-header th {
+        text-align: right;
+    }
+
+    .stats-header th:first-child {
+        text-align: left;
+    }
+
+    .stats td.statements,
+    .stats td.executed,
+    .stats td.coverage {
+        text-align: right;
+    }
+
+    .stats > thead th,
+    .stats > thead td,
+    .stats > tbody > tr > td {
+        padding: 4px 10px;
+    }
+
+    .stats > thead th {
+        font-size: 0.85em;
+    }
+
+    .stats > thead > tr:first-child th {
+        background-color: #758691;
+    }
+
+    .stats > thead th:first-child,
+    .stats > thead td:first-child,
+    .stats > tbody > tr > td:first-child {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+
+    .stats > thead th:last-child,
+    .stats > thead td:last-child,
+    .stats > tbody > tr > td:last-child {
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+
+    .stats > tbody > tr:nth-child(4n + 1) {
+        background-color: #e7e8e9;
+    }
+
+    .stats > tbody > tr:nth-child(2n + 1) {
+        cursor: pointer;
+    }
+
+    .stats > tbody > tr:nth-child(2n + 1):hover {
+        background-color: #b1c7d4;
+    }
+
+    .stats tr.no-statements {
+        opacity: 0.6;
+    }
+
+    a, a:hover, a:visited, a:active {
+        color: black;
+        text-decoration: none;
+    }
+
+    .bar-container {
+        padding: 2px;
+        padding-right: 8px;
+        width: 15%;
+    }
+
+    .bar {
+        background-color: #DDD;
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 8px 8px 8px 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.5);
+        height: 7px;
+        padding: 1px;
+        position: relative;
+        width: 100%;
+    }
+
+    .bar > span {
+        background-color: #AEDB4B;
+        border-radius: 6px 6px 6px 6px;
+        box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.2) inset, 0 1px 0 rgba(255, 255, 255, 0.4) inset, 0 -1px 0 rgba(0, 0, 0, 0.15) inset;
+        display: block;
+        height: 100%;
+    }
+
+    .bar > span:before {
+        position: absolute;
+        width: 25%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        border-right: 1px solid rgba(0,0,0,0.1);
+        content: ' ';
+    }
+    .bar > span:after {
+        position: absolute;
+        width: 25%;
+        height: 100%;
+        left: 50%;
+        top: 0;
+        border-left: 1px solid rgba(0,0,0,0.1);
+        border-right: 1px solid rgba(0,0,0,0.1);
+        content: ' ';
+    }
+
+    /* line by line coverage styles */
+
+    .line-coverage {
+        margin: 10px 0px;
+    }
+
+    .line-coverage th {
+        border-right: 1px solid #758691;
+    }
+
+    .line-coverage th div,
+    .line-coverage td div {
+        text-align: center;
+    }
+
+    .line-coverage th div {
+        margin: 0px 10px 0px 4px;
+    }
+
+    .line-coverage td div {
+        padding: 2px 6px 2px 4px;
+        margin: 0;
+    }
+
+    .line-coverage th,
+    .line-coverage td,
+    .line-coverage pre {
+        padding: 0;
+        margin: 0;
+
+        font-size: 1.05em;
+        font-weight: normal;
+        font-family: Courier New;
+    }
+
+    .line-coverage th div, 
+    .line-coverage td.times-executed div {
+        border-radius: 0 5px 5px 0;
+        color: rgba(0, 0, 0, 0.8);
+        font-size: 0.9em;
+    }
+
+    .line-coverage td pre {
+        margin-left: 8px;
+    }
+
+    .line-coverage tr.covered td.times-executed div {
+        background-color: #aedb4b;
+    }
+
+    .line-coverage tr.not-covered td.times-executed div {
+        background-color: #ff8134;
+    }
+
+    .line-coverage span.keyword {
+        color: #000080;
+        font-weight: bold;
+    }
+
+    .line-coverage span.string {
+        color: #008000;
+    }
+
+    .line-coverage span.number {
+        color: #0000ff;
+    }
+
+    .line-coverage a {
+        color: black;
+    }
+
+    .line-coverage-cell > div {
+        color: #FF8134;
+    }
+
+    .line-coverage-cell > div > a {
+        color: #FF8134;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    .stats > thead td {
+        font-weight: bold;
+    }
+
+    .footer {
+        padding-top: 5px;
+        text-align: right;
+        font-style: italic;
+        font-size: 0.85em;
+        opacity: 0.7;
+    }
+
+    .footer a {
+        text-decoration: underline;
+    }
+</style>
+<script type="text/javascript">
+    (function () {
+        var reservedKeywords = [
+            "break",
+            "case",
+            "catch",
+            "continue",
+            "debugger",
+            "default",
+            "delete",
+            "do",
+            "else",
+            "false",
+            "finally",
+            "for",
+            "function",
+            "if",
+            "in",
+            "instanceof",
+            "new",
+            "null",
+            "return",
+            "switch",
+            "this",
+            "true",
+            "throw",
+            "try",
+            "typeof",
+            "var",
+            "void",
+            "while",
+            "with"
+        ];
+
+        String.prototype.reverse = function () {
+            return this.split('').reverse().join('');
+        };
+
+        var reservedKeywordsPattern = new RegExp('\\b(' + reservedKeywords.join('|') + ')\\b', 'g');
+        var jsStringPattern = /('(?!\\').*'|"(?!\\").*")/g;
+        var jsNumberPattern = /\b(\d+(?:\.\d+)?)\b/g;
+
+        function el(type) {
+            return document.createElement(type);
+        }
+
+        function withText(node, text) {
+            node.innerHTML = text;
+            return node;
+        }
+
+        function maybeAppendMissedLines(id, frag, missed, data) {
+            if (missed.length === 0) {
+                return;
+            }
+
+            var rangeAnchors = [];
+            var range;
+
+            for (var i = 0, len = missed.length; i < len; i++) {
+                var start = missed[i];
+                var end = start;
+
+                range = [start];
+
+                for (var j = i + 1; j < len; j++) {
+                    var missedLineNr = missed[j];
+                    var consecutive = false;
+
+                    // consecutive missed lines
+                    if (missedLineNr === end + 1) {
+                        consecutive = true;
+                    } else {
+                        // let's check if all lines in between are not executable
+                        var dataIdx = end;
+
+                        while (dataIdx < missedLineNr) {
+                            if (data[dataIdx][0] > -1) {
+                                if (data[dataIdx][0] === 0) {
+                                    missedLineNr = dataIdx + 1;
+                                    consecutive = true;
+                                }
+
+                                break;
+                            }
+
+                            dataIdx++;
+                        }
+                    }
+
+                    if (consecutive) {
+                        end = missedLineNr;
+                        i = j;
+                    }
+                }
+
+                range[1] = end;
+
+                var rangeStr = start === end ? start : start + '-' + end;
+                rangeAnchors.push('<a href="' + '#' + id + '-' + start + '">' + rangeStr + '</a>');
+            }
+
+            frag.appendChild(withText(el('div'), 'Missed lines: ' + rangeAnchors.join(', ')));
+        }
+
+        function createSourceTable(id, dataEl) {
+            var d = document;
+
+            var data = eval(dataEl.innerHTML);
+            var td = dataEl.parentNode;
+            td.removeChild(dataEl);
+
+            var frag = d.createDocumentFragment();
+
+            var table = el('table');
+            table.className = 'line-coverage';
+
+            var missed = [];
+
+            for (var i = 0, len = data.length; i < len; i++) {
+                var tr = el('tr');
+                var record = data[i];
+
+                var timesExecuted = record[0];
+                var src = record[1];
+                var executable = timesExecuted > -1;
+                var lineNr = i + 1;
+
+                if (timesExecuted === 0) {
+                    missed.push(lineNr);
+                }
+
+                tr.className = !executable ? 'not-executable' : timesExecuted > 0 ? 'covered' : 'not-covered';
+                table.appendChild(tr);
+
+                var lineNrNode = el('th');
+
+                var anchor = el('a');
+                anchor.setAttribute('name', id + '-' + lineNr);
+                anchor.appendChild(withText(el('div'), lineNr));
+
+                lineNrNode.appendChild(anchor);
+                tr.appendChild(lineNrNode);
+
+                var timesExecutedNode = el('td');
+                timesExecutedNode.className = 'times-executed';
+                timesExecutedNode.appendChild(withText(el('div'), executable ? (timesExecuted || '!') : '&nbsp;'));
+                tr.appendChild(timesExecutedNode);
+
+                var srcNode = el('td');
+
+                var styledSrc = src
+                    .reverse().replace(jsStringPattern, '>naps/<$1>"gnirts"=ssalc naps<').reverse()
+                    .replace(jsNumberPattern, '<span class="number">$1</span>')
+                    .replace(reservedKeywordsPattern, '<span class="keyword">$1</span>');
+
+                srcNode.appendChild(withText(el('pre'), styledSrc));
+
+                tr.appendChild(srcNode);
+            }
+
+            maybeAppendMissedLines(id, frag, missed, data);
+            frag.appendChild(table);
+
+            td.appendChild(frag.cloneNode(true));
+        }
+
+        window.__coverage_toggleSection = function (hash) {
+            var d = document;
+            var id = hash.indexOf('-') > -1 ? hash.substring(0, hash.indexOf('-')) : hash;
+
+            var srcRow = d.getElementById('__src_' + id);
+            if (!srcRow) {
+                return;
+            }
+
+            var dataEl = d.getElementById('__data_' + id);
+
+            if (dataEl) {
+                createSourceTable(id, dataEl);
+            }
+
+            var show = srcRow.style.display === 'none';
+
+            if (show) {
+                srcRow.style.display = '';
+                window.location.hash = "#" + hash;
+            } else {
+                srcRow.style.display = 'none';
+                window.location.hash = '#closed';
+            }
+        }
+
+        window.onload = function () {
+            if (window.location.hash) {
+                __coverage_toggleSection(window.location.hash.substr(1));
+            }
+        };
+
+    })();
+</script>
+</head>
+<body>
+    <h1>Total coverage report</h1>
+    <table class="stats">
+        <thead>
+            <tr class="stats-header">
+                <th>File</th>
+                <th>Statements</th>
+                <th>Executed</th>
+                <th>Coverage</th>
+                <th></th>
+            </tr>
+            <tr class="stats-header ">
+                <td>Total</td>
+                <td class="statements">224</td>
+                <td class="executed">152</td>
+                <td class="coverage">
+                        67&thinsp;%
+                </td>
+                <td class="bar-container">
+                        <div class="bar">
+                            <span style="width: 67%; background-color: rgb(203, 219, 75);"></span>
+                        </div>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr  onclick="__coverage_toggleSection('4e7c20ba683d3aecc90d7a5e6d31e216'); return false;">
+                <td><a href="#">target/jasmine/src/<strong>YahooAjaxHelper.js</strong></a></td>
+                <td class="statements">38</td>
+                <td class="executed">1</td>
+                <td class="coverage">
+                        2&thinsp;%
+                </td>
+                <td class="bar-container">
+                        <div class="bar">
+                            <span style="width: 2%; background-color: rgb(219, 80, 75);"></span>
+                        </div>
+                </td>
+            </tr>
+            <tr id="__src_4e7c20ba683d3aecc90d7a5e6d31e216" style="display: none;">
+                <td class="line-coverage-cell" colspan="5"><p id="__data_4e7c20ba683d3aecc90d7a5e6d31e216">[[-1,'\/**'],[-1,' * Created with JetBrains PhpStorm.'],[-1,' * User: Almira'],[-1,' * Date: 19-3-13'],[-1,' * Version: 1.0'],[-1,' *\/'],[-1,'\/**'],[-1,' * Dit is de constructor van de YahooAjaxHelper,'],[-1,' * De YahooAjaxHelper kan zo vaak als je wil worden aangemaakt.'],[-1,' * Ik maak er een constructor van om een specifieke object van te maken die zijn eigen methodes en variabels heeft.'],[-1,' * De yahooAjaxHelper is om data van yahoo op te halen door middel van ajax en json.'],[-1,' *'],[-1,' * De reden dat ik alle functies en variables in de constructor zet is om het zoveel mogenlijk op een class te laten lijken met zijn eigen methodes\/variables.'],[-1,' * Om het erin te zetten zien het er ook meer uit als een class.'],[-1,' * @constructor : Constructor van de YahooAjaxHelper class.'],[-1,' *\/'],[1,'function YahooAjaxHelper(){'],[-1,'    \/**'],[-1,'     * De status is OK'],[-1,'     * @type {Number} : wanneer de status ok is staat hij gelijk aan 200.'],[-1,'     *\/'],[0,'    var OK = 200;'],[-1,'    \/**'],[-1,'     * De readyState is gelijk aan 4 ( de Request is finished en Response is Ready)'],[-1,'     * @type {Number} : Wanneer der de Request is finished en Response is Ready staat hij gelijk aan 4;'],[-1,'     *\/'],[0,'    var ReqFinischedResReady = 4;'],[-1,'    \/**'],[-1,'     * Wanneer de status niet Multichoices wordt.'],[-1,'     * @type {Number} : Multichoiced staat gelijk aan 300.'],[-1,'     *\/'],[0,'    var MultiChoices = 300;'],[-1,'    \/**'],[-1,'     * De NotModified is wanneer de status dus nog niet gemotified is'],[-1,'     * @type {Number} : Wanneer de status notModified is staat hij gelijk aan 304.'],[-1,'     *\/'],[0,'    var NotModified = 304;'],[-1,'    \/**'],[-1,'     * arraylijst van de yahoostocks.'],[-1,'     * @type {Array} : De array waar de yahoostocks in zitten'],[-1,'     *\/'],[0,'    var yahooStocksArray = [];'],[-1,''],[-1,'    \/**'],[-1,'     * Dit is de functie getStockData waarbij een request wordt gestuurt om een json object op te halen.'],[-1,'     * Eerst wordt de url in een variable gezet. daarna wordt de xhr object gecree\u00EBrt en in de variable gezet.'],[-1,'     * Dan wordt de functie open opgeroepen met als request get en de url wordt meegegeven.'],[-1,'     * Wanneer de request klaar is en er is een response moet hij de stocks parsen door de functie parseStocks te roepen en de xhr.responseTest mee te geven.'],[-1,'     * Zodat de json kan worden geparsed en in een arraylijst kan worden gezet en deze dan te updaten met de functie updateTable van de StockView waarbij de newstocks wordt meegegeven.'],[-1,'     *'],[-1,'     * Used: book 2 editie hoofdstuk ajax en json.'],[-1,'     * Used site: http:\/\/www.w3schools.com\/ajax\/ajax_xmlhttprequest_onreadystatechange.asp'],[-1,'     * Used site: http:\/\/msdn.microsoft.com\/en-us\/library\/windows\/desktop\/ms767625(v=vs.85).aspx'],[-1,'     *\/'],[0,'    this.getStockData = function(){'],[0,'        var url= \&quot;http:\/\/query.yahooapis.com\/v1\/public\/yql?q=select%20*%20from%20csv%20where%20url%3D\'http%3A%2F%2Fdownload.finance.yahoo.com%2Fd%2Fquotes.csv%3Fs%3Dbcs%2Bstt%2Bjpm%2Blgen.l%2Bubs%2Bdb%2Bben%2Bcs%2Bbk%2Bkn.pa%2Bgs%2Blm%2Bms%2Bmtu%2Bntrs%2Bgle.pa%2Bbac%2Bav%2Bsdr.l%2Bslf%2Bsl.l%2Bnmr%2Bing%2Bbnp.pa%26f%3Dsb3c6p2%26e%E2%80%8C%E2%80%8B%3D.csv\'&amp;format=json\&quot;;'],[0,'        var xhr = createXHR.call(this);'],[0,'        xhr.open(\&quot;GET\&quot;,url,true);'],[0,'        xhr.onreadystatechange= function(){'],[0,'            if (xhr.readyState === ReqFinischedResReady) {'],[0,'                if (((xhr.status &gt;= OK) &amp;&amp; xhr.status &lt; MultiChoices) || xhr.status === NotModified) {'],[0,'                    yahooStocksArray = parseStocks.call(this,xhr.responseText);'],[0,'                    if(yahooStocksArray!==null){'],[0,'                        NewStocks = yahooStocksArray;'],[0,'                        view.updateTable(NewStocks);'],[-1,'                    }'],[-1,'                }'],[-1,'            }'],[-1,'        };'],[0,'        xhr.send(null);'],[-1,'    };'],[-1,''],[-1,'    \/**'],[-1,'     * Hier wordt er gekeken welk browser je hebt normaal wordt het een nieuwe XMLHttpRequest().'],[-1,'     * Indien je een oudere versie hebt wordt de ActiveXObject meegegeven.'],[-1,'     * Used site: http:\/\/www.w3schools.com\/ajax\/ajax_xmlhttprequest_create.asp'],[-1,'     * @return {XMLHttpRequest}'],[-1,'     *\/'],[0,'    function createXHR() {'],[0,'        var xhr;'],[0,'        if (window.XMLHttpRequest) {'],[0,'            xhr = new XMLHttpRequest();'],[0,'            return xhr;'],[-1,'        } else {'],[0,'            xhr = new ActiveXObject(\&quot;Microsoft.XMLHTTP\&quot;);'],[0,'            return xhr;'],[-1,'        }'],[-1,'    }'],[-1,''],[-1,'    \/**'],[-1,'     * Hier worden de json geparsed en daaarna wordt er voor elke bedrijf een nieuwe StockModel gemaakt door de functie CreateStockArray op te roepen en de stocks mee te geven.'],[-1,'     * @param response De response die je krijgt (de responseText)'],[-1,'     * @return {*} Hij Returtn een array met alle nieuwgemaakte stocks.'],[-1,'     *\/'],[0,'    function parseStocks(response) {'],[0,'        response = JSON.parse(response);'],[0,'        var stocks= response.query.results;'],[0,'        stocks = stocks.row;'],[0,'        stocks = createStockArray.call(this,stocks);'],[0,'        return stocks;'],[-1,'    }'],[-1,''],[-1,'    \/**'],[-1,'     * Hier word er voor alle stocks een stock (d.m.v een nieuwe StockModel te maken)aangemaakt en in een array gezet en gerturned.'],[-1,'     * @param stocks : Alle stocks waar een StockModel van gemaakt moet worden.'],[-1,'     * @return {Array} De array met alle stocks.'],[-1,'     *\/'],[0,'    function createStockArray(stocks){'],[0,'        var allStocks = [];'],[0,'        for(var i = 0; i&lt;stocks.length;i++){'],[0,'            var stock = stocks[i];'],[0,'            stock = new StockModel(stock.col0,stock.col1,stock.col2,stock.col3);'],[0,'            allStocks[i] = stock;'],[-1,'        }'],[0,'        return allStocks;'],[-1,'    }'],[-1,'}']]</p></td>
+            </tr><tr  onclick="__coverage_toggleSection('4784d696d2d20015cec73c04245242b9'); return false;">
+                <td><a href="#">target/jasmine/src/<strong>StockProvider.js</strong></a></td>
+                <td class="statements">16</td>
+                <td class="executed">1</td>
+                <td class="coverage">
+                        6&thinsp;%
+                </td>
+                <td class="bar-container">
+                        <div class="bar">
+                            <span style="width: 6%; background-color: rgb(219, 92, 75);"></span>
+                        </div>
+                </td>
+            </tr>
+            <tr id="__src_4784d696d2d20015cec73c04245242b9" style="display: none;">
+                <td class="line-coverage-cell" colspan="5"><p id="__data_4784d696d2d20015cec73c04245242b9">[[-1,'\/**'],[-1,' * Created with JetBrains PhpStorm.'],[-1,' * User: Almira'],[-1,' * Version: 1.0'],[-1,' *\/'],[-1,''],[-1,'\/**'],[-1,' * Dit is de constructor van de StockProvider,'],[-1,' * De StockProvider kan zo vaak als je wil worden aangemaakt.'],[-1,' * Ik maak er een constructor van om een specifieke object van te maken die zijn eigen methodes en variabels heeft.'],[-1,' * De stockProvider is een factory pattern.'],[-1,' * De stockprovider geeft een nieuwe Localhelper of YahooAjaxHelper door de functie getData op te roepen.'],[-1,' * In mijn geval set ik al wanneer ik de yahoo wil of de local. Dit doe ik door ze om de 10 keer te wisselen.'],[-1,' * Dus 10 keer geef ik de local dan 10 keer de yahoo en dit steeds om en om.'],[-1,' *'],[-1,' * De reden dat ik alle functies en variables in de constructor zet is om het zoveel mogenlijk op een class te laten lijken met zijn eigen methodes\/variables.'],[-1,' * Om het erin te zetten zien het er ook meer uit als een class.'],[-1,' * @constructor : Constructor van de StockProvider class.'],[-1,' *\/'],[1,'function StockProvider(){'],[-1,'    \/**'],[-1,'     * Maakt een nieuwe YahooAjaxHelper aan en zet dat in de variable yahoo.'],[-1,'     * @type {YahooAjaxHelper} : Geeft een YahooAjaxHelper \&quot;class\/object\&quot;.'],[-1,'     *\/'],[0,'    yahoo = new YahooAjaxHelper();'],[-1,''],[-1,'    \/**'],[-1,'     * Maakt een nieuwe LocalHelper aan en zet dat in de variable local.'],[-1,'     * @type {LocalHelper} : Geeft een LocalHelper \&quot;class\/object\&quot;.'],[-1,'     *\/'],[0,'    local = new LocalHelper();'],[-1,''],[-1,'    \/**'],[-1,'     * Dit is om bij te houden het aantal keer dat de methode getdata is aan geroepen,'],[-1,'     * zodat er om en om de yahoo en local helpers worden gereturnt'],[-1,'     * @type {Number} : count begint met 1.'],[-1,'     *\/'],[0,'    var count = 1;'],[-1,''],[-1,'    \/**'],[-1,'     * De functie getData is om een nieuwe yahoo of local helper te returnen .'],[-1,'     * Na elke keer dat de functie wordt aangeroepen gaat de count omhoog.'],[-1,'     * Dan wordt er een if en else gezet, wanneer de getdata 10 keer is aangeroepen (die local mee geeft) geeft hij de yahoo terug.'],[-1,'     * Nadat de functie 20 keer is aangeroepen wordt de count gereset en zo geeft de StockProvider factory om en om de local en yahoo en roept de getStockData functie aan.'],[-1,'     *'],[-1,'     * @param count : het aantal keer dat getdata is opgeroepen.'],[-1,'     *\/'],[0,'    function getData(count) {'],[-1,'        \/**'],[-1,'         * Eerst 10 keer dat data wordt opgeroepen voor de local;'],[-1,'         * @type {Number} : 10 keer.'],[-1,'         *\/'],[0,'        var localCount = 10;'],[-1,'        \/**'],[-1,'         * de volgende 10 keer (maximum is dan dus 20 keer) voor de yahoo;'],[-1,'         * @type {Number} : 20e keer.'],[-1,'         *\/'],[0,'        var yahooCount = 20;'],[-1,'        \/**'],[-1,'         * reset de count terug naar 1'],[-1,'         * @type {Number} :  1 (gereset weer naar het begin)'],[-1,'         *\/'],[0,'        var resetCount = 1;'],[-1,'        \/**'],[-1,'         * hier wordt de functie getdata aangeroepen voor het returnen van de local of yahoo helper.'],[-1,'         * @return {*} Het hang van de count af wat hij returnt, of de local.getStockData() of de yahoo.getStockData'],[-1,'         *\/'],[0,'        this.getData = function () {'],[0,'            count++;'],[0,'            if (count &lt;= localCount) {'],[0,'                return local.getStockData();'],[-1,'            }'],[-1,'            else {'],[0,'                if (count === yahooCount) {'],[0,'                    count = resetCount;'],[-1,'                }'],[0,'                return yahoo.getStockData();'],[-1,'            }'],[-1,'        };'],[-1,'    }'],[-1,''],[-1,'    \/**'],[-1,'     * Wanneer de functie getData wordt opgeroepen geeft hij de count mee.'],[-1,'     *\/'],[0,'    getData.call(this, count);'],[-1,'}']]</p></td>
+            </tr><tr  onclick="__coverage_toggleSection('9c2a9c833b9f6250d6b964f464b7062f'); return false;">
+                <td><a href="#">target/jasmine/src/<strong>StockController.js</strong></a></td>
+                <td class="statements">12</td>
+                <td class="executed">2</td>
+                <td class="coverage">
+                        16&thinsp;%
+                </td>
+                <td class="bar-container">
+                        <div class="bar">
+                            <span style="width: 16%; background-color: rgb(219, 121, 75);"></span>
+                        </div>
+                </td>
+            </tr>
+            <tr id="__src_9c2a9c833b9f6250d6b964f464b7062f" style="display: none;">
+                <td class="line-coverage-cell" colspan="5"><p id="__data_9c2a9c833b9f6250d6b964f464b7062f">[[-1,'\/**'],[-1,' * Created with JetBrains PhpStorm.'],[-1,' * User: Almira'],[-1,' * version: 1.0'],[-1,' *\/'],[-1,''],[-1,'\/**'],[-1,' * Dit is de array met alle stocks.'],[-1,' *\/'],[1,'var NewStocks;'],[-1,''],[-1,'\/**'],[-1,' * Dit is de constructor van de StockController,'],[-1,' * De stockcontroller kan zo vaak als je wil worden gemaakt.'],[-1,' * Ik maak er een constructor van om een specifieke object van te maken die zijn eigen methodes en variabels heeft.'],[-1,' * Ook gebruik ik de model view controller pattern dit omdat het gestructureerd wordt en makkelijk te begrijpen,'],[-1,' * de controller roept de view aan en set een timer,'],[-1,' * De Controller maakt een stockprovider aan en geeft dit door aan de methode start van het object Time.'],[-1,' * De stockprovider is een factory die of een localhelper terug geeft of een yahoohelper, wanneer er nieuwe data is aangemaakt wordt de view geupdate.'],[-1,' * @constructor : Constructor van de StockController class.'],[-1,' *\/'],[1,'function StockController(){'],[-1,'    \/**'],[-1,'     * Hier wordt een nieuwe \&quot;instantie\/class\&quot; class aangemaakt van een randomizer.'],[-1,'     * @type {Randomizer}'],[-1,'     *\/'],[0,'    randomizer = new Randomizer();'],[-1,''],[-1,'    \/**'],[-1,'     * Hier wordt een nieuwe \&quot;instantie\/class\&quot; class aangemaakt van een timer.'],[-1,'     * @type {Timer}'],[-1,'     *\/'],[0,'    this.timer = new Timer();'],[-1,''],[-1,'    \/**'],[-1,'     * Hier wordt een nieuwe \&quot;instantie\/class\&quot; class aangemaakt van een stockview;'],[-1,'     * Dit wordt gemaakt om een mvc pattern te gebruiken'],[-1,'     * @type {StockView}'],[-1,'     *\/'],[0,'    view = new StockView();'],[-1,''],[-1,'    \/**'],[-1,'     *  Hier wordt een nieuwe \&quot;instantie\/class\&quot; class aangemaakt van een stockprovider;'],[-1,'     * @type {StockProvider}'],[-1,'     *\/'],[0,'    stockprovider = new StockProvider();'],[-1,''],[-1,'    \/**'],[-1,'     * Dit is een functie die alleen wordt gebruikt in de stockprovider.'],[-1,'     * Ik wil ook niet dat andere objecten deze functie kunnen oproepen.'],[-1,'     * Deze functie set eerst de nieuwe stocks,'],[-1,'     * waarbij de default data wordt opgehaald door de functie firstData op te roepen van de randomizer.'],[-1,'     *  Dan geeft de controller door aan de view (door de methode buildstocktable waarbij de stocks worden meegegeven) dat een tabel met data moet worden gemaakt.'],[-1,'     *\/'],[0,'    function buildPage() {'],[0,'        NewStocks = randomizer.firstData();'],[0,'        view.buildStockTable(NewStocks);'],[-1,'    }'],[-1,''],[-1,'    \/**'],[-1,'     * Dit is de main function, eerst wordt de buildpage opgeroepen om de tabel ta maken.'],[-1,'     * Daarna wordt de timer gestart door de class timer op te roepen en zijn start methode.'],[-1,'     * De stockprovider wordt meegegeven aan de start methode,'],[-1,'     * dit zodat de methode getdata van de stockprovider steeds kan worden aangeroepen om de 5 seconde.'],[-1,'     *\/'],[0,'    this.main = function(){'],[0,'        buildPage.call(this);'],[0,'        this.timer.start(stockprovider);'],[-1,'    };'],[-1,'}']]</p></td>
+            </tr><tr  onclick="__coverage_toggleSection('f5b8397ad5089a80fdc6dd54ae8bdd18'); return false;">
+                <td><a href="#">target/jasmine/src/<strong>Timer.js</strong></a></td>
+                <td class="statements">6</td>
+                <td class="executed">1</td>
+                <td class="coverage">
+                        16&thinsp;%
+                </td>
+                <td class="bar-container">
+                        <div class="bar">
+                            <span style="width: 16%; background-color: rgb(219, 121, 75);"></span>
+                        </div>
+                </td>
+            </tr>
+            <tr id="__src_f5b8397ad5089a80fdc6dd54ae8bdd18" style="display: none;">
+                <td class="line-coverage-cell" colspan="5"><p id="__data_f5b8397ad5089a80fdc6dd54ae8bdd18">[[-1,'\/**'],[-1,' * Created with JetBrains PhpStorm.'],[-1,' * User: Almira'],[-1,' * Version: 1.0'],[-1,' *\/'],[-1,''],[-1,'\/**'],[-1,' * Dit is de constructor van de Timer,'],[-1,' * De Timer kan zo vaak als je wil worden aangemaakt.'],[-1,' * Ik maak er een constructor van om een specifieke object van te maken die zijn eigen methodes en variabels heeft.'],[-1,' * De timer class\/object is er om de timer te starten zodat de data steeds wordt geupdate.'],[-1,' *'],[-1,' * De reden dat ik alle functies en variables in de constructor zet is om het zoveel mogenlijk op een class te laten lijken met zijn eigen methodes\/variables.'],[-1,' * Om het erin te zetten zien het er ook meer uit als een class.'],[-1,' *'],[-1,' * Used site: http:\/\/www.elated.com\/articles\/javascript-timers-with-settimeout-and-setinterval\/'],[-1,' * @constructor : Constructor van de Timer class.'],[-1,' *\/'],[1,'function Timer(){'],[-1,'    \/**'],[-1,'     * Het aantal seconde\/minuten\/uren dat de informatie moet worden geupdate.'],[-1,'     * @type {Number} : het aantal seconde\/minuten\/uren.'],[-1,'     *\/'],[0,'    var delayTime = 5000;'],[-1,''],[-1,'    \/**'],[-1,'     * De functie start is om de interval te starten,'],[-1,'     * De stockprovider moet meegegeven worden om de data steeds te updaten.'],[-1,'     * @param stockprovider : de stockprovider dat wordt meegegeven door de constructor waar de yahoo of local wordt opgehaald.'],[-1,'     *\/'],[0,'    this.start = function(stockprovider){'],[0,'        this.interval = setInterval( stockprovider.getData, delayTime);'],[-1,'    };'],[-1,''],[-1,'    \/**'],[-1,'     * Deze functie kan de interval stoppen.'],[-1,'     *\/'],[0,'    this.stop = function(){'],[0,'        clearInterval(this.interval);'],[-1,'    };'],[-1,''],[-1,'}']]</p></td>
+            </tr><tr  onclick="__coverage_toggleSection('233826f088c763e64d1559a58cf059c6'); return false;">
+                <td><a href="#">target/jasmine/src/<strong>LocalHelper.js</strong></a></td>
+                <td class="statements">5</td>
+                <td class="executed">1</td>
+                <td class="coverage">
+                        20&thinsp;%
+                </td>
+                <td class="bar-container">
+                        <div class="bar">
+                            <span style="width: 20%; background-color: rgb(219, 132, 75);"></span>
+                        </div>
+                </td>
+            </tr>
+            <tr id="__src_233826f088c763e64d1559a58cf059c6" style="display: none;">
+                <td class="line-coverage-cell" colspan="5"><p id="__data_233826f088c763e64d1559a58cf059c6">[[-1,'\/**'],[-1,' * Created with JetBrains PhpStorm.'],[-1,' * User: Almira'],[-1,' * Version: 1.0'],[-1,' *\/'],[-1,''],[-1,'\/**'],[-1,' * Dit is de constructor van de LocalHelper,'],[-1,' * De LocalHelper kan zo vaak als je wil worden aangemaakt.'],[-1,' * Ik maak er een constructor van om een specifieke object van te maken die zijn eigen methodes en variabels heeft.'],[-1,' * De localhelper is er om random data te maken en dit te updaten.'],[-1,' *'],[-1,' * De reden dat ik alle functies en variables in de constructor zet is om het zoveel mogenlijk op een class te laten lijken met zijn eigen methodes\/variables.'],[-1,' * Om het erin te zetten zien het er ook meer uit als een class.'],[-1,' * @constructor : Constructor van de LocalHelper class.'],[-1,' *\/'],[1,'function LocalHelper(){'],[-1,'    \/**'],[-1,'     * Hier wordt een object randomizer aangemaakt,'],[-1,'     * Deze randomizer wordt opgeslagen in de prototype van de localhelper'],[-1,'     * @type {Randomizer} : een nieuwe randomizer voor de localhelper.'],[-1,'     *\/'],[0,'    this.randomizer = new Randomizer();'],[-1,''],[-1,'    \/**'],[-1,'     * Hier wordt de data geupdate en verandert in de tabel.'],[-1,'     * Eerst wordt er nieuwe stocks gemaakt door de randomizer\'s methode generateRandomStocks.'],[-1,'     * De Newstocks worden meegegeven waarbij er random data van gemaakt en opgeslagen weer in de NewStocks.'],[-1,'     * Daarna word de view opgeroepen en wordt het tabel geupdate door de updatetable methode te roepen en de stocks mee te geven.'],[-1,'     *\/'],[0,'    this.getStockData =  function(){'],[0,'        NewStocks = this.randomizer.generateRandomStocks(NewStocks);'],[0,'        view.updateTable(NewStocks);'],[-1,'    };'],[-1,'}']]</p></td>
+            </tr><tr  onclick="__coverage_toggleSection('3e19dbbb8e983dc7e9956bb719c0ac9d'); return false;">
+                <td><a href="#">target/jasmine/src/<strong>Randomizer.js</strong></a></td>
+                <td class="statements">33</td>
+                <td class="executed">32</td>
+                <td class="coverage">
+                        96&thinsp;%
+                </td>
+                <td class="bar-container">
+                        <div class="bar">
+                            <span style="width: 96%; background-color: rgb(177, 219, 75);"></span>
+                        </div>
+                </td>
+            </tr>
+            <tr id="__src_3e19dbbb8e983dc7e9956bb719c0ac9d" style="display: none;">
+                <td class="line-coverage-cell" colspan="5"><p id="__data_3e19dbbb8e983dc7e9956bb719c0ac9d">[[-1,'\/**'],[-1,' * Created with JetBrains PhpStorm.'],[-1,' * User: Almira'],[-1,' * Version: 1.0'],[-1,' *\/'],[-1,''],[-1,'\/**'],[-1,' * Dit is de constructor van de Randomzier,'],[-1,' * De Randomizer kan zo vaak als je wil worden aangemaakt.'],[-1,' * Ik maak er een constructor van om een specifieke object van te maken die zijn eigen methodes en variabels heeft.'],[-1,' * De Randomizer is er om random data te maken en dit te updaten.'],[-1,' * Ook wordt er default data gemaakt met de methode firstdata.'],[-1,' *'],[-1,' * De reden dat ik alle functies en variables in de constructor zet is om het zoveel mogenlijk op een class te laten lijken met zijn eigen methodes\/variables.'],[-1,' * Om het erin te zetten zien het er ook meer uit als een class.'],[-1,' * @constructor : Constructor van de Randomizer class.'],[-1,' *\/'],[1,'function Randomizer(){'],[-1,'    \/**'],[-1,'     * De firstData functie is een prototype functie van de randomizer.'],[-1,'     * Eerst wordt er een lege array gemaakt voor de defaultData variable.'],[-1,'     * Dan zet ik voor de namen, prijs, verandering en verandering in procenten een array met vaste data.'],[-1,'     * Dan wordt een methode createDefaultStock opgeroepen en de array\'s worden meegegeven.'],[-1,'     * De createdefault set alle data\'s als een stock in een array en geeft dit meet.'],[-1,'     * @return {Array} : Dit is een array lijst met de default data.'],[-1,'     *\/'],[2,'    this.firstData= function (){'],[6,'        var defaultData = [];'],[6,'        var names = [\&quot;BCS\&quot;,\&quot;STT\&quot;,\&quot;JPM\&quot;,\&quot;LGEN.L\&quot;,\&quot;UBS\&quot;,\&quot;DB\&quot;,\&quot;BEN\&quot;,\&quot;CS\&quot;,\&quot;BK\&quot;,\&quot;KN.PA\&quot;,\&quot;GS\&quot;,\&quot;LM\&quot;,\&quot;MS\&quot;,\&quot;MTU\&quot;,\&quot;NTRS\&quot;,\&quot;GLE.PA\&quot;,\&quot;BAC\&quot;,\&quot;AV\&quot;,\&quot;SDR.L\&quot;,\&quot;SLF\&quot;,\&quot;SL.L\&quot;,\&quot;NMR\&quot;,\&quot;ING\&quot;,\&quot;BNP.PA\&quot;];'],[6,'        var prices = [18.03,60.73,49.10,171.30,15.53,42.04,149.27,29.50,28.27,3.183,150.03,32.04,22.65,6.18,54.72,28.19,12.79,10.00,2137.00,29.50,369.70,6.37,7.93,42.24];'],[6,'        var changes = [-0.05,1.27,-0.08,0.80,-0.07,0.22,1.24,0.09,0.05,0.00,1.29,0.42,0.35,0.06,0.56,0.35,0.07,0.001,38.00,0.12,1.90,0.16,0.10,1.28];'],[6,'        var changeInPercentages = [-0.28+\&quot;%\&quot;,2.14+\&quot;%\&quot;,-0.16+\&quot;%\&quot;,0.47+\&quot;%\&quot;,-0.45+\&quot;%\&quot;,0.53+\&quot;%\&quot;,0.84+\&quot;%\&quot;,0.33+\&quot;%\&quot;,0.18+\&quot;%\&quot;,0.00+\&quot;%\&quot;,0.87+\&quot;%\&quot;,1.34+\&quot;%\&quot;,1.56+\&quot;%\&quot;,1.00+\&quot;%\&quot;,1.04+\&quot;%\&quot;,1.26+\&quot;%\&quot;,0.55+\&quot;%\&quot;,0.01+\&quot;%\&quot;,1.81+\&quot;%\&quot;,0.44+\&quot;%\&quot;,0.52+\&quot;%\&quot;,2.66+\&quot;%\&quot;,1.28+\&quot;%\&quot;,3.14+\&quot;%\&quot;];'],[6,'        createDefaultStock.call(this,defaultData, names, prices, changes, changeInPercentages);'],[6,'        return defaultData;'],[-1,'    };'],[-1,''],[-1,'    \/**'],[-1,'     * Dit is de functie createDefaultStock,'],[-1,'     * Eerst wordt hij in een loop gezet om door alle data te gaan,'],[-1,'     * Voor elke index (i) wordt er een nieuwe StockModel gemaakt,'],[-1,'     * de waardes worden meegegeven aan de Stockmodel zodat er stocks worden gemaakt.'],[-1,'     * Elke stock worden dan opgeslagen en in de defaultData geset.'],[-1,'     * @param defaultData : De arraylijst voor de default data.'],[-1,'     * @param names : De arraylijst  met de namen van alle bedrijven.'],[-1,'     * @param prices : De arraylijst  met de prijs per stock van alle bedrijven.'],[-1,'     * @param changes : De arraylijst  met de verandering per stock van alle bedrijven.'],[-1,'     * @param changeInPercentages : De arraylijst  met de verandering in procenten per stock van alle bedrijven.'],[-1,'     *\/'],[2,'    function createDefaultStock(defaultData, names, prices, changes, changeInPercentages) {'],[6,'        for (var i = 0; i &lt; names.length; i++) {'],[144,'            defaultData[i] = new StockModel(names[i], prices[i], changes[i], changeInPercentages[i]);'],[-1,'        }'],[-1,'    }'],[-1,''],[-1,'    \/**'],[-1,'     * Dit is de functie generateRandomStocks (prototype functie van de Randomizer)'],[-1,'     * De oude stocks waar random data van gemaakt moet worden wordt meegegeven als parameter.'],[-1,'     * Eerst set ik alle variable voor de magic numbers, ook wordt er een array aangemaakt voor de nieuwe stocks.'],[-1,'     * Dan roep ik de functie createRandom aan en geef de oude stocks en overige variable mee.'],[-1,'     * Nadat de functie createrandom klaar is wordt de nieuwe stocks gereturnt'],[-1,'     *'],[-1,'     * @param oldStocks : De oude stocks;'],[-1,'     * @return {Array} : De nieuwe array met stocks met random waardes.'],[-1,'     *\/'],[2,'    this.generateRandomStocks = function(oldStocks){'],[-1,'        \/**'],[-1,'         * Maximale en minimale prijsverandering'],[-1,'         * @type {Number} : 3'],[-1,'         *\/'],[2,'        var maxMinPrice=3;'],[-1,'        \/**'],[-1,'         * Het aantal komma\'s achter de punt'],[-1,'         * @type {Number} : 100'],[-1,'         *\/'],[2,'        var roundToDouble=100;'],[-1,'        \/**'],[-1,'         * Gedeeld door hondert(maximale) procent.'],[-1,'         * @type {Number} 100'],[-1,'         *\/'],[2,'        var percent = 100;'],[-1,'        \/**'],[-1,'         * Een legearray waar de nieuwe stocks in moeten komen.'],[-1,'         * @type {Array} : array met nieuwe stocks.'],[-1,'         *\/'],[2,'        var newStocks=[];'],[2,'        createRandom.call(this,oldStocks, roundToDouble, maxMinPrice, percent, newStocks);'],[2,'        return newStocks;'],[-1,'    };'],[-1,''],[-1,'    \/**'],[-1,'     * Dit is de createRandom functie.'],[-1,'     * De variable oldStocks, roundToDouble, maxMinPrice, Percent, Newstocks moeten worden meegeven om de random stocks te maken.'],[-1,'     * Als eerst wordt er een loop gemaakt voor elke stock in de oude stock array ( om door elke stock heen te gaan)'],[-1,'     * De stock wordt er in een locale variable opgeslagen.'],[-1,'     * Eerst wordt er een nieuwe priceStock gemaakt door de functie getRandomPrice op te roepen en de return waarde op te slaan.'],[-1,'     * Dan wordt de verandering berekend, om ervoor de zorgen dat het een double wordt heb ik gebruik gemaakt van de website\'s hieronder.'],[-1,'     * De rekensom ja die ken ik nog van de middelbare school (wiskunde).'],[-1,'     * De verandering in procenten heb ik ook gebruik gemaakt van de math.round, De berekening ken ik van de middelbare school(economie)'],[-1,'     * Na elke stock wordt er dus de prijs verandert en de change + change in procent berekend en opgeslagen in de newStocks.'],[-1,'     * Voor elke nieuwe stock wordt er ook een nieuwe StockModel gemaakt en de variables meegegeven.'],[-1,'     *'],[-1,'     * Gebruikt: http:\/\/www.javascripter.net\/faq\/mathfunc.htm en -&gt; http:\/\/www.javascripter.net\/faq\/rounding.htm'],[-1,'     * @param oldStocks : De array met oude stocks.'],[-1,'     * @param roundToDouble : Het aantal nummers dat achter de komma mag.'],[-1,'     * @param maxMinPrice : maximale\/minimale price verandering.'],[-1,'     * @param percent : Het aantal procent.'],[-1,'     * @param newStocks : De array met nieuwe Stocks.'],[-1,'     *\/'],[2,'    function createRandom(oldStocks, roundToDouble, maxMinPrice, percent, newStocks) {'],[2,'        var priceIndex = 1;'],[2,'        var symbolIndex = 0;'],[2,'        for (var i = 0; i &lt; oldStocks.length; i++) {'],[48,'            var stock = oldStocks[i].stock;'],[48,'            var newPriceStock = getRandomPrice.call(this, roundToDouble, stock[priceIndex], maxMinPrice);'],[48,'            var newChange = Math.round(roundToDouble * (newPriceStock - stock[priceIndex])) \/ roundToDouble;'],[48,'            var newChangePercent = Math.round(roundToDouble * (((newPriceStock - stock[priceIndex]) \/ stock[priceIndex]) * percent)) \/ roundToDouble + \'%\';'],[48,'            newStocks[i] = new StockModel(stock[symbolIndex], newPriceStock, newChange, newChangePercent);'],[-1,'        }'],[-1,'    }'],[-1,''],[-1,'    \/**'],[-1,'     * Dit is de getRandomPrice functie.'],[-1,'     * Deze functie is er om ervoor de zorgen dat de prijs niet gelijk of lager dan 0 is.'],[-1,'     * De prijs wordt random gemaakt en gerturnt'],[-1,'     *'],[-1,'     * @param roundToDouble : Het aantal nummers dat achter de komma mag.'],[-1,'     * @param stockPrice : de oude stockprijs.'],[-1,'     * @param maxMinPrice : maximale\/minimale price verandering.'],[-1,'     * @return {Number} : de nieuwe prijs van de stock;'],[-1,'     *\/'],[2,'    function getRandomPrice(roundToDouble, stockPrice, maxMinPrice) {'],[48,'        var price = Math.round(roundToDouble * (stockPrice + (Math.random() * (maxMinPrice - (-maxMinPrice))) + (-maxMinPrice))) \/ roundToDouble;'],[48,'        while (price &lt;= 0) {'],[0,'            price = Math.round(roundToDouble * (stockPrice + (Math.random() * (maxMinPrice - (-maxMinPrice))) + (-maxMinPrice))) \/ roundToDouble;'],[-1,'        }'],[48,'        return price;'],[-1,'    }'],[-1,'}']]</p></td>
+            </tr><tr  onclick="__coverage_toggleSection('f9360023c752dce3772f116446b1b783'); return false;">
+                <td><a href="#">target/jasmine/spec/<strong>RandomizerTest.js</strong></a></td>
+                <td class="statements">11</td>
+                <td class="executed">11</td>
+                <td class="coverage">
+                        100&thinsp;%
+                </td>
+                <td class="bar-container">
+                        <div class="bar">
+                            <span style="width: 100%; background-color: rgb(174, 219, 75);"></span>
+                        </div>
+                </td>
+            </tr>
+            <tr id="__src_f9360023c752dce3772f116446b1b783" style="display: none;">
+                <td class="line-coverage-cell" colspan="5"><p id="__data_f9360023c752dce3772f116446b1b783">[[-1,'\/**'],[-1,' * Created with JetBrains PhpStorm.'],[-1,' * User: Almira'],[-1,' * Date: 26-3-13'],[-1,' * Time: 10:23'],[-1,' * To change this template use File | Settings | File Templates.'],[-1,' *\/'],[-1,''],[1,'describe(\'The Randomizer function\',function(){'],[1,'    it(\'create first data\',function(){'],[1,'        anRandomizer = new Randomizer();'],[1,'        var arraylijst = anRandomizer.firstData();'],[1,'        var lengthList = arraylijst.length;'],[1,'        expect(lengthList).toEqual(24);'],[-1,'    });'],[-1,'});'],[-1,''],[1,'describe(\'The Randomizer function\',function(){'],[1,'    it(\'create random data\',function(){'],[1,'        var arraylijstOld = anRandomizer.firstData();'],[1,'        var arraylijstNew = anRandomizer.generateRandomStocks(arraylijstOld);'],[1,'        expect(arraylijstOld).toNotEqual(arraylijstNew);'],[-1,'    });'],[-1,'});']]</p></td>
+            </tr><tr  onclick="__coverage_toggleSection('8b9fb653f234ed0fd9301fcbf66ae376'); return false;">
+                <td><a href="#">target/jasmine/spec/<strong>StockModelTest.js</strong></a></td>
+                <td class="statements">5</td>
+                <td class="executed">5</td>
+                <td class="coverage">
+                        100&thinsp;%
+                </td>
+                <td class="bar-container">
+                        <div class="bar">
+                            <span style="width: 100%; background-color: rgb(174, 219, 75);"></span>
+                        </div>
+                </td>
+            </tr>
+            <tr id="__src_8b9fb653f234ed0fd9301fcbf66ae376" style="display: none;">
+                <td class="line-coverage-cell" colspan="5"><p id="__data_8b9fb653f234ed0fd9301fcbf66ae376">[[-1,'\/**'],[-1,' * Created with JetBrains PhpStorm.'],[-1,' * User: Almira'],[-1,' * Date: 26-3-13'],[-1,' * Time: 23:05'],[-1,' * To change this template use File | Settings | File Templates.'],[-1,' *\/'],[-1,''],[1,'describe(\'The StockModel constructor function\',function(){'],[1,'    it(\'should create a stockmodel and a stock in it\',function(){'],[1,'        makeStock= new StockModel(\&quot;BBC\&quot;,\&quot;4.50\&quot;,\&quot;+0.58\&quot;,\&quot;+1.2%\&quot;);'],[1,'        result = makeStock.stock;'],[1,'        expect(result.length).toBe(4);'],[-1,'    });'],[-1,'});']]</p></td>
+            </tr><tr  onclick="__coverage_toggleSection('b3d115ee0c65ac5014da78715526e766'); return false;">
+                <td><a href="#">target/jasmine/spec/<strong>StockViewtTest.js</strong></a></td>
+                <td class="statements">41</td>
+                <td class="executed">41</td>
+                <td class="coverage">
+                        100&thinsp;%
+                </td>
+                <td class="bar-container">
+                        <div class="bar">
+                            <span style="width: 100%; background-color: rgb(174, 219, 75);"></span>
+                        </div>
+                </td>
+            </tr>
+            <tr id="__src_b3d115ee0c65ac5014da78715526e766" style="display: none;">
+                <td class="line-coverage-cell" colspan="5"><p id="__data_b3d115ee0c65ac5014da78715526e766">[[1,'describe(\'The buildStockTable function\',function(){'],[1,'    it(\'should create table\',function(){'],[1,'        anRandomizer = new Randomizer();'],[1,'        view = new StockView();'],[1,'        var arraylijst = anRandomizer.firstData();'],[1,'        view.buildStockTable(arraylijst);'],[1,'        var expected = document.getElementsByTagName(\'table\');'],[1,'        expect(expected).toNotBe(null);'],[-1,'    });'],[-1,'});'],[-1,''],[1,'describe(\'The updateTable function\',function(){'],[1,'    it(\'should update table with new data\',function(){'],[1,'        var arraylijstOld = anRandomizer.firstData();'],[1,'        var arraylijstNew = anRandomizer.generateRandomStocks(arraylijstOld);'],[1,'        view.buildStockTable(arraylijstOld);'],[1,'        view.updateTable(arraylijstOld,arraylijstNew);'],[1,'        var expected = document.getElementById(\'BCS\');'],[1,'        var value = expected.childNodes[3].firstChild.nodeValue;'],[1,'        expect(expected).toNotBe(\&quot;-0.28%\&quot;);'],[-1,'    });'],[-1,'});'],[-1,''],[1,'describe(\'The CreatRows function\',function(){'],[1,'    it(\'should create rows\',function(){'],[1,'        var stockview = new StockView();'],[1,'        var arraylijst = anRandomizer.firstData();'],[1,'        var table = document.createElement(\'table\');'],[1,'        var tbody = document.createElement(\'tbody\');'],[1,'        stockview.createRows(tbody,arraylijst);'],[1,'        table.appendChild(tbody);'],[1,'        document.body.appendChild(table);'],[1,'        var row = document.getElementById(arraylijst[0].stock[0]).id;'],[1,'        expect(row).toBe(\&quot;BCS\&quot;);'],[-1,'    });'],[-1,'});'],[-1,''],[1,'describe(\'The creatheaders function\',function(){'],[1,'    it(\'should create rows\',function(){'],[1,'        var stockview = new StockView();'],[1,'        var arraylijst = anRandomizer.firstData();'],[1,'        var table = document.createElement(\'table\');'],[1,'        var tbody = document.createElement(\'tbody\');'],[1,'        var row = document.createElement(\'tr\');'],[1,'        tbody.appendChild(row);'],[1,'        stockview.createHeaders(row);'],[1,'        table.appendChild(tbody);'],[1,'        document.body.appendChild(table);'],[1,'        var result = document.getElementsByTagName(\'tr\')[0].firstChild.textContent;'],[1,'        expect(result).toBe(\&quot;Name\&quot;);'],[-1,'    });'],[-1,'});']]</p></td>
+            </tr><tr  onclick="__coverage_toggleSection('365951465f6bcdb3a32ddbdb7afc1ac3'); return false;">
+                <td><a href="#">target/jasmine/src/<strong>StockModel.js</strong></a></td>
+                <td class="statements">2</td>
+                <td class="executed">2</td>
+                <td class="coverage">
+                        100&thinsp;%
+                </td>
+                <td class="bar-container">
+                        <div class="bar">
+                            <span style="width: 100%; background-color: rgb(174, 219, 75);"></span>
+                        </div>
+                </td>
+            </tr>
+            <tr id="__src_365951465f6bcdb3a32ddbdb7afc1ac3" style="display: none;">
+                <td class="line-coverage-cell" colspan="5"><p id="__data_365951465f6bcdb3a32ddbdb7afc1ac3">[[-1,'\/**'],[-1,' * Created with JetBrains PhpStorm.'],[-1,' * User: Almira'],[-1,' * Version: 1.0'],[-1,' *\/'],[-1,''],[-1,'\/**'],[-1,' * Dit is de constructor van de StockModel,'],[-1,' * De StockModel kan zo vaak als je wil worden aangemaakt.'],[-1,' * Ik maak er een constructor van om een specifieke object van te maken die zijn eigen methodes en variabels heeft.'],[-1,' * Wanneer een nieuwe stockmodel wordt gemaat moet de naam, prijs, verandering en procenten worden meegegven,'],[-1,' * zodat er een nieuwe stock array kan worden aangemaakt.'],[-1,' *'],[-1,' * De reden dat ik alle functies en variables in de constructor zet is om het zoveel mogenlijk op een class te laten lijken met zijn eigen methodes\/variables.'],[-1,' * Om het erin te zetten zien het er ook meer uit als een class.'],[-1,' * @param name : Naam\/symbool van een bedrijf.'],[-1,' * @param price : De prijs van een bedrijf.'],[-1,' * @param change : De verandering van een bedrijf.'],[-1,' * @param changePrecentage : De verandering in procenten van een bedrijf.'],[-1,' * @constructor : Constructor van de StockModel class.'],[-1,' *\/'],[1,'function StockModel(name,price, change, changePrecentage){'],[-1,'    \/**'],[-1,'     * Een array met de stock informatie in (array prototype stock van de stockmodel.'],[-1,'     * @type {Array}'],[-1,'     *\/'],[193,'    this.stock = [name,parseFloat(price),parseFloat(change),changePrecentage];'],[-1,'}']]</p></td>
+            </tr><tr  onclick="__coverage_toggleSection('81e2b0e921a925710fc311c01d19d30e'); return false;">
+                <td><a href="#">target/jasmine/src/<strong>StockView.js</strong></a></td>
+                <td class="statements">55</td>
+                <td class="executed">55</td>
+                <td class="coverage">
+                        100&thinsp;%
+                </td>
+                <td class="bar-container">
+                        <div class="bar">
+                            <span style="width: 100%; background-color: rgb(174, 219, 75);"></span>
+                        </div>
+                </td>
+            </tr>
+            <tr id="__src_81e2b0e921a925710fc311c01d19d30e" style="display: none;">
+                <td class="line-coverage-cell" colspan="5"><p id="__data_81e2b0e921a925710fc311c01d19d30e">[[-1,'\/**'],[-1,' * Created with JetBrains PhpStorm.'],[-1,' * User: Almira'],[-1,' * Version: 1.0'],[-1,' *\/'],[-1,''],[-1,'\/**'],[-1,' * Dit is de constructor van de StockView,'],[-1,' * De StockView kan zo vaak als je wil worden aangemaakt.'],[-1,' * Ik maak er een constructor van om een specifieke object van te maken die zijn eigen methodes en variabels heeft.'],[-1,' * De Stockview is er om een tabel te maken met data erin maar ook om de tabel te updaten indien de stocks zijn verandert.'],[-1,' *'],[-1,' * De reden dat ik alle functies en variables in de constructor zet is om het zoveel mogenlijk op een class te laten lijken met zijn eigen methodes\/variables.'],[-1,' * Om het erin te zetten zien het er ook meer uit als een class.'],[-1,' * @constructor : Constructor van de StockView class.'],[-1,' *\/'],[1,'function StockView(){'],[-1,'    \/**'],[-1,'     * Het Aantal bedrijven (stocks).'],[-1,'     * @type {Number} : 24 bedrijven.'],[-1,'     *\/'],[3,'    var numberOfCompanies = 24;'],[-1,''],[-1,'    \/**'],[-1,'     * het aantal kolommen.'],[-1,'     * @type {Number} : 4 is het aantal kolommen dat een rij mag hebben.'],[-1,'     *\/'],[3,'    var numberOfColoms = 4;'],[-1,''],[-1,'    \/**'],[-1,'     * Hier wordt een stock table gemaakt met data erin.'],[-1,'     * Eerst wordt er een tabel gemaakt en een tbody,'],[-1,'     * Dat worden er rijen gemaakt door de functie createrows te roepen waarin de cellen worden ingezet in de rijen.'],[-1,'     * Nadat de rijen met cellen in de tbody zitten word de tbody in de tabel geplaats en de tabel in de body.'],[-1,'     * @param arraylist : arraylijst met de default stocks.'],[-1,'     *\/'],[3,'    this.buildStockTable = function(arraylist){'],[2,'        var table = document.createElement(\'table\');'],[2,'        var tbody = document.createElement(\'tbody\');'],[2,'        this.createRows(tbody,arraylist);'],[2,'        table.appendChild(tbody);'],[2,'        document.body.appendChild(table);'],[-1,'    };'],[-1,''],[-1,'    \/**'],[-1,'     * Dit is de functie createRows dit et aantal rijen creert die er nodig zijn( voor alle bedrijven).'],[-1,'     * Eerst wordt eer een loop gemaakt voor het aantal bedrijven waarbij de rijen eerst worden gemaakt.'],[-1,'     * \u00C9en rij wordt er extra gemaakt voor de header row.'],[-1,'     * Eerst worden de headers gemaakt en in de eerst rij geplaatst.'],[-1,'     * Nadat de headers zijn geplaatst worden de overige cellen gecre\u00EBrt door de functie createCells te roepen.'],[-1,'     * Aan de functie geef je elke rij mee met de stock die erin moet worden geset.'],[-1,'     * Nadat de cellen zijn gemaakt word elk rij in de tbody gezet.'],[-1,'     * @param tbody : De tbody van de tabel'],[-1,'     * @param allStocks : de arraylist met de default stocks.'],[-1,'     *\/'],[3,'    this.createRows = function(tbody, allStocks) {'],[3,'        for (var i = 0; i &lt;= numberOfCompanies; i++) {'],[75,'            var row = document.createElement(\'tr\');'],[-1,''],[75,'            if (i === 0) {'],[3,'                this.createHeaders(row);'],[-1,'            } else {'],[72,'                row.id = allStocks[i-1].stock[0];'],[72,'                this.createCells(row, allStocks[i-1].stock);'],[-1,'            }'],[75,'            tbody.appendChild(row);'],[-1,'        }'],[-1,'    };'],[-1,''],[-1,'    \/**'],[-1,'     * Dit is de functie createHeaders waar de headers worden gemaakt van de tabel.'],[-1,'     * Eerst wordt er een loop gemaakt voor elk kolom.'],[-1,'     * Voor elk kolom wordt er een header gemaakt.'],[-1,'     * het aantal kolommen staan vast en de arraylijst met de headertekst.'],[-1,'     * Elke keer dat de header wordt gemaakt wordt de tekst ook gemaakt dan wordt de tekst in de headercel geplaatst en de headercel in de rij.'],[-1,'     * @param row : de rij in de tbody\/tabel'],[-1,'     *\/'],[3,'    this.createHeaders = function(row) {'],[-1,'        \/**'],[-1,'         * Een arraylijst met de tekst dat in de header moet komen.'],[-1,'         * @type {Array} : een array met tekst dat in de header moet komen.'],[-1,'         *\/'],[4,'        var textArray = [\'Name\',\'Rate\', \'Change +\/-\', \'%+\/-\'];'],[4,'        for (var j = 0; j &lt; numberOfColoms; j++) {'],[16,'            var tableHeader = document.createElement(\'th\');'],[16,'            var text = document.createTextNode(textArray[j]);'],[16,'            tableHeader.appendChild(text);'],[16,'            row.appendChild(tableHeader);'],[-1,'        }'],[-1,'    };'],[-1,''],[-1,'    \/**'],[-1,'     * Dit is de createCells functie waarbij de overige cellen worden gemaakt met de value erin.'],[-1,'     * De rij en de stock worden meegegeven.'],[-1,'     * Dit weer wordt gezet in de loop en eerst wordt de tablecell gecree\u00EBrt en daarna de value.'],[-1,'     * Dan wordt de achtergrond kleur geset aan de hand van de change.'],[-1,'     * Aan het einde wordt eerst de value\/text in de tablecell gezet en de cell in de rij.'],[-1,'     *'],[-1,'     * @param row : de rij van de tabel\/tbody waar de cellen in worden gezet.'],[-1,'     * @param stock : de stock waar de waardes van in de rij moeten worden gezet.'],[-1,'     *\/'],[3,'    this.createCells = function(row, stock) {'],[72,'        for (var k = 0; k &lt; numberOfColoms; k++) {'],[288,'            var tableCell = document.createElement(\'td\');'],[288,'            var text = document.createTextNode(stock[k]);'],[288,'            this.setBackgroundColor(stock, row);'],[288,'            tableCell.appendChild(text);'],[288,'            row.appendChild(tableCell);'],[-1,'        }'],[-1,'    };'],[-1,''],[-1,'    \/**'],[-1,'     * Dit is de SetBackgroundColor functie.'],[-1,'     * De stock en rij wordt meegegeven aan de functie om zo erachter te komen of de achtergrond kleur rood, groen of blauw moet worden.'],[-1,'     * Eerst wordt er gechecket of er geen verandering is (indien wel wordt de classname verandert naar noChange waarbij de achtergrondkleur blauw wordt)'],[-1,'     * Dan wordt er gechecket of er wel verandering is en dus groter dan 0 is(indien wel wordt de classname verandert naar Up waarbij de achtergrondkleur groen wordt)'],[-1,'     * Als laatst wordt er gechecket of er wel verandering is  maar kleiner dan 0 is(indien wel wordt de classname verandert naar Down waarbij de achtergrondkleur Rood wordt)'],[-1,'     * @param stock : de stock waarbij wordt gekeken of er verandering is in de prijs.'],[-1,'     * @param row : de rij waar de kleur van wordt verandert door behulp van verandering van classname.'],[-1,'     *\/'],[3,'    this.setBackgroundColor = function(stock, row) {'],[336,'        var changeIndex = 2;'],[336,'        if (stock[changeIndex] === 0) {'],[14,'            row.className = \'noChange\';'],[322,'        } else if (stock[changeIndex] &gt; 0.00) {'],[280,'            row.className = \'up\';'],[42,'        } else if (stock[changeIndex] &lt; 0.00) {'],[42,'            row.className = \'down\';'],[-1,'        }'],[-1,'    };'],[-1,''],[-1,'    \/**'],[-1,'     * De updateTable functie verandert de waarde in de cellen indien die verschillend zijn.'],[-1,'     * De nieuwe data wordt meegegeven om mee te vergelijken maar ook om de nieuwe data value in de tabel te zetten.'],[-1,'     * Eerst wordt er een loop gemaakt om door alle stocks heen te gaan en te updaten,'],[-1,'     * dan wordt er per rij gechecked of de colom value verandert zijn indien dit zo is wordt dit bijgewerkt in de tabel.(dit door de setChangedValues methode te roepen)'],[-1,'     * @param newdata : de nieuwe data dat in de tabel moet worden gezet(geupdate).'],[-1,'     *\/'],[3,'    this.updateTable= function(newdata){'],[1,'        for(var i = 0; i &lt; numberOfCompanies ; i++){'],[24,'            for(var j = 0; j &lt; numberOfColoms ; j++) {'],[96,'                this.setChangedValues(j, newdata[i].stock);'],[-1,'            }'],[-1,'        }'],[-1,'    };'],[-1,'    \/**'],[-1,'     * Dit is de setChangedValues functie waarbij de nieuwe waarde wordt gechecked naar de waarde in de cell.'],[-1,'     * indien de waardes anders zijn word de cell waar de waarde anders in is verandert in de nieuwe waarde.'],[-1,'     * dit door de oude waarde te verwijderen en een nieuwe tekstnode te maken en in de cell te zetten.'],[-1,'     * ook wordt de achtergrondkleur van de rij geupdate door de functie setBackgroundcolor te roepen.'],[-1,'     * @param j : de index van de waarde die verandert moet worden indien nodig'],[-1,'     * @param newstock : de nieuwe stock.'],[-1,'     *\/'],[3,'    this.setChangedValues = function(j, newstock) {'],[96,'        var tablecell = (document.getElementById(newstock[0])).childNodes[j];'],[96,'        var oldValue = document.getElementById(newstock[0]).childNodes[j].textContent;'],[96,'        if (oldValue !== newstock[j]) {'],[48,'            var newValue = document.createTextNode(newstock[j]);'],[48,'            this.setBackgroundColor(newstock,(document.getElementById(newstock[0])));'],[48,'            this.checkIfHasText(tablecell);'],[48,'            tablecell.appendChild(newValue);'],[-1,'        }'],[-1,'    };'],[-1,''],[-1,'    \/**'],[-1,'     * Dit is een extra check om te kijken of er een tekstelement in de cell zit, indien de value niet null is wordt de tekstnode verwijdert uit de cell.'],[-1,'     * @param tablecell : de cell waar de check moet worden gedaan.'],[-1,'     *\/'],[3,'    this.checkIfHasText = function(tablecell) {'],[48,'        var oldText = tablecell.childNodes[0];'],[48,'        if (oldText !== null) {'],[48,'            tablecell.removeChild(oldText);'],[-1,'        }'],[-1,'    };'],[-1,'}']]</p></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="footer">Generated using <a href="http://timurstrekalov.github.com/saga/">Saga</a> version 1.1.0</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+table{
+    border: 1px solid #d3d3d3;
+    border-spacing: 0px;
+    vertical-align: middle;
+    width: 50%;
+    height: 200px;
+    box-shadow: 10px 10px 5px #d3d3d3;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table td, th{
+    border-bottom-style: solid;
+    border-bottom-color:#d3d3d3;
+    border-bottom-width:2px;
+    min-width: 10px;
+}
+
+.up{
+   background-color: #d5ffd4;
+}
+
+.down{
+    background-color: #ffd4d4;
+}
+
+.noChange{
+    background-color: #d4e9ff;
+}

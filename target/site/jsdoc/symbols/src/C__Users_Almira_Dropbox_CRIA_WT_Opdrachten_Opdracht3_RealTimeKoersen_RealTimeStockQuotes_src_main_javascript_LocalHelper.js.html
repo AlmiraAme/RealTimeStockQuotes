@@ -1,0 +1,42 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
+<span class='line'>  2</span>  * Created with JetBrains PhpStorm.
+<span class='line'>  3</span>  * User: Almira
+<span class='line'>  4</span>  * Version: 1.0
+<span class='line'>  5</span>  */</span><span class="WHIT">
+<span class='line'>  6</span> 
+<span class='line'>  7</span> </span><span class="COMM">/**
+<span class='line'>  8</span>  * Dit is de constructor van de LocalHelper,
+<span class='line'>  9</span>  * De LocalHelper kan zo vaak als je wil worden aangemaakt.
+<span class='line'> 10</span>  * Ik maak er een constructor van om een specifieke object van te maken die zijn eigen methodes en variabels heeft.
+<span class='line'> 11</span>  * De localhelper is er om random data te maken en dit te updaten.
+<span class='line'> 12</span>  *
+<span class='line'> 13</span>  * De reden dat ik alle functies en variables in de constructor zet is om het zoveel mogenlijk op een class te laten lijken met zijn eigen methodes/variables.
+<span class='line'> 14</span>  * Om het erin te zetten zien het er ook meer uit als een class.
+<span class='line'> 15</span>  * @constructor : Constructor van de LocalHelper class.
+<span class='line'> 16</span>  */</span><span class="WHIT">
+<span class='line'> 17</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">LocalHelper</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 18</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 19</span>      * Hier wordt een object randomizer aangemaakt,
+<span class='line'> 20</span>      * Deze randomizer wordt opgeslagen in de prototype van de localhelper
+<span class='line'> 21</span>      * @type {Randomizer} : een nieuwe randomizer voor de localhelper.
+<span class='line'> 22</span>      */</span><span class="WHIT">
+<span class='line'> 23</span> </span><span class="WHIT">    </span><span class="NAME">this.randomizer</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Randomizer</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 24</span> 
+<span class='line'> 25</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 26</span>      * Hier wordt de data geupdate en verandert in de tabel.
+<span class='line'> 27</span>      * Eerst wordt er nieuwe stocks gemaakt door de randomizer's methode generateRandomStocks.
+<span class='line'> 28</span>      * De Newstocks worden meegegeven waarbij er random data van gemaakt en opgeslagen weer in de NewStocks.
+<span class='line'> 29</span>      * Daarna word de view opgeroepen en wordt het tabel geupdate door de updatetable methode te roepen en de stocks mee te geven.
+<span class='line'> 30</span>      */</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">    </span><span class="NAME">this.getStockData</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT">  </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 32</span> </span><span class="WHIT">        </span><span class="NAME">NewStocks</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.randomizer.generateRandomStocks</span><span class="PUNC">(</span><span class="NAME">NewStocks</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="WHIT">        </span><span class="NAME">view.updateTable</span><span class="PUNC">(</span><span class="NAME">NewStocks</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 35</span> </span><span class="PUNC">}</span></pre></body></html>
